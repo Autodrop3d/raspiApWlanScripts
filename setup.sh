@@ -1,5 +1,8 @@
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
 # disable debian networking and dhcpcd
-sudo -Es
 systemctl mask networking.service
 systemctl mask dhcpcd.service
 mv /etc/network/interfaces /etc/network/interfaces~
