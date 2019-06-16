@@ -66,3 +66,5 @@ DNS=84.200.69.80 84.200.70.40
 EOF
 
 systemctl disable wpa_supplicant@ap0.service
+cp /lib/systemd/system/wpa_supplicant@.service /etc/systemd/system/wpa_supplicant@ap0.service
+sed 
