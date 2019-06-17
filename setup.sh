@@ -504,7 +504,7 @@ while getopts ${SCRIPT_OPTS} OPTION; do
 		;;
 	esac
 done
-if [ $flagOptS = 0 ] || [ $flagOptP = 0 ] || [ $flagOptR = 0 ] || [ $flagOptR = 0 ] 
+if [ $flagOptS == 0 ] || [ $flagOptP == 0 ] || [ $flagOptR == 0 ] || [ $flagOptR == 0 ] 
 then
 	error "${SCRIPT_NAME} Requires the s, p, a, and r options" && usage 1>&2 && exit 1
 fi
@@ -651,5 +651,5 @@ EOF
 #== End ==#
 #=========#
 ipcf_load_rc >/dev/null
-[[ SHOULD_REBOOT == 1 ]] && reboot now
+[[ $SHOULD_REBOOT == 1 ]] && reboot now
 exit $rc
