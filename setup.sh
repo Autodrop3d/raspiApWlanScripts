@@ -7,7 +7,7 @@
 #%
 #% DESCRIPTION
 #%    This script sets up a Raspberry Pi to switch between station and AP modes
-#%    without reboot. IMPORTANT: This script WILL reboot the Pi immediately!!!
+#%    without reboot. You must reboot your Pi after running this script
 #%    After reboot, use either of the following commands to switch between
 #%    these modes:
 #%      # systemctl start wpa_supplicant@ap0
@@ -563,7 +563,7 @@ fi
 {
 	scriptstart
 	#== start your program here ==#
-	infotitle "Running simple cmd"
+	infotitle "Masking existing network services"
 
 	# disable debian networking and dhcpcd
 	exec_cmd "systemctl mask networking.service"
@@ -571,10 +571,14 @@ fi
 	exec_cmd "mv /etc/network/interfaces /etc/network/interfaces~"
 	exec_cmd "sed -i '1i resolvconf=NO' /etc/resolvconf.conf"
 
+	infotitle "Enabling systemd-networkd and systemd-resolved"
+
 	# enable systemd-networkd
 	exec_cmd "systemctl enable systemd-networkd.service"
 	exec_cmd "systemctl enable systemd-resolved.service"
 	exec_cmd "ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf"
+
+	infotitle "Creating wlan0 wpa_supplicant file"
 
 	cat >/etc/wpa_supplicant/wpa_supplicant-wlan0.conf <<EOF
 country=US
@@ -590,6 +594,8 @@ EOF
 	exec_cmd "chmod 600 /etc/wpa_supplicant/wpa_supplicant-wlan0.conf"
 	exec_cmd "systemctl disable wpa_supplicant.service"
 	exec_cmd "systemctl enable wpa_supplicant@wlan0.service"
+
+	infotitle "Creating ap0 wpa_supplicant file"
 
 	cat >/etc/wpa_supplicant/wpa_supplicant-ap0.conf <<EOF
 country=US
@@ -608,6 +614,8 @@ EOF
 
 	exec_cmd "chmod 600 /etc/wpa_supplicant/wpa_supplicant-ap0.conf"
 
+	infotitle "Creating both wlan0 and ap0 systemd network files"
+
 	cat >/etc/systemd/network/08-wlan0.network <<EOF
 [Match]
 Name=wlan0
@@ -625,6 +633,8 @@ DHCPServer=yes
 DNS=84.200.69.80 84.200.70.40
 EOF
 
+infotitle "Now for some slick systemd unit editing!"
+
 	exec_cmd "systemctl disable wpa_supplicant@ap0.service"
 	exec_cmd "cp /lib/systemd/system/wpa_supplicant@.service /etc/systemd/system/wpa_supplicant@ap0.service"
 	exec_cmd "sed -i 's/Requires=sys-subsystem-net-devices-%i.device/Requires=sys-subsystem-net-devices-wlan0.device/' /etc/systemd/system/wpa_supplicant@ap0.service"
@@ -634,7 +644,9 @@ EOF
 	exec_cmd "sed -i '/ExecStart/a ExecStopPost=/sbin/iw dev ap0 del/' /etc/systemd/system/wpa_supplicant@ap0.service"
 	exec_cmd "systemctl daemon-reload"
 
-	if [[ flagOptD == 1 ]]; then
+infotitle "Finally, setup the default wifi option"
+
+	if [[ $flagOptD == 1 ]]; then
 		exec_cmd "systemctl disable wpa_supplicant@wlan0.service"
 		exec_cmd "systemctl enable wpa_supplicant@ap0.service"
 	else
@@ -642,7 +654,7 @@ EOF
 		exec_cmd "systemctl disable wpa_supplicant@ap0.service"
 	fi
 
-	SHOULD_REBOOT=1
+infotitle "YOU SHOULD NOW REBOOT YOUR PI" && echo "Run 'sudo reboot now'"
 
 	#== end   your program here ==#
 	scriptfinish
@@ -651,5 +663,5 @@ EOF
 #== End ==#
 #=========#
 ipcf_load_rc >/dev/null
-[[ $SHOULD_REBOOT == 1 ]] && /sbin/shutdown -r now
+
 exit $rc
