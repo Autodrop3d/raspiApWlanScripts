@@ -582,8 +582,8 @@ ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 
 network={
-		ssid=\"${staSsid}\"
-		psk=\"${staPsk}\"
+		ssid="${staSsid}"
+		psk="${staPsk}"
 }
 EOF
 
@@ -597,11 +597,11 @@ ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 
 network={
-    ssid=\"${apSsid}\"
+    ssid="${apSsid}"
     mode=2
     key_mgmt=WPA-PSK
     proto=RSN WPA
-    psk=\"${apPsk}\"
+    psk="${apPsk}"
     frequency=2412
 }
 EOF
@@ -651,5 +651,5 @@ EOF
 #== End ==#
 #=========#
 ipcf_load_rc >/dev/null
-[[ $SHOULD_REBOOT == 1 ]] && reboot now
+[[ $SHOULD_REBOOT == 1 ]] && /sbin/shutdown -r now
 exit $rc
