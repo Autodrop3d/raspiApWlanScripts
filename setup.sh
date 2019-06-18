@@ -640,7 +640,7 @@ EOF
 	exec_cmd "sed -i 's/After=sys-subsystem-net-devices-%i.device/After=sys-subsystem-net-devices-wlan0.device/' /etc/systemd/system/wpa_supplicant@ap0.service"
 	exec_cmd "sed -i '/After=sys-subsystem-net-devices-wlan0.device/a Conflicts=wpa_supplicant@wlan0.service/' /etc/systemd/system/wpa_supplicant@ap0.service"
 	exec_cmd "sed -i '/Type=simple/a ExecStartPre=/sbin/iw dev wlan0 interface add ap0 type __ap' /etc/systemd/system/wpa_supplicant@ap0.service"
-	exec_cmd "sed -i '/ExecStart/a ExecStopPost=/sbin/iw dev ap0 del' /etc/systemd/system/wpa_supplicant@ap0.service"
+	exec_cmd "sed -i '/ExecStart=/a ExecStopPost=/sbin/iw dev ap0 del' /etc/systemd/system/wpa_supplicant@ap0.service"
 	exec_cmd "systemctl daemon-reload"
 
 	infotitle "Finally, setup the default wifi option"
