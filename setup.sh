@@ -504,8 +504,7 @@ while getopts ${SCRIPT_OPTS} OPTION; do
 		;;
 	esac
 done
-if [ $flagOptS == 0 ] || [ $flagOptP == 0 ] || [ $flagOptR == 0 ] || [ $flagOptR == 0 ] 
-then
+if [ $flagOptS == 0 ] || [ $flagOptP == 0 ] || [ $flagOptR == 0 ] || [ $flagOptR == 0 ]; then
 	error "${SCRIPT_NAME} Requires the s, p, a, and r options" && usage 1>&2 && exit 1
 fi
 shift $((${OPTIND} - 1))                      ## shift options
@@ -633,7 +632,7 @@ DHCPServer=yes
 DNS=84.200.69.80 84.200.70.40
 EOF
 
-infotitle "Now for some slick systemd unit editing!"
+	infotitle "Now for some slick systemd unit editing!"
 
 	exec_cmd "systemctl disable wpa_supplicant@ap0.service"
 	exec_cmd "cp /lib/systemd/system/wpa_supplicant@.service /etc/systemd/system/wpa_supplicant@ap0.service"
@@ -644,7 +643,7 @@ infotitle "Now for some slick systemd unit editing!"
 	exec_cmd "sed -i '&ExecStart&a ExecStopPost=/sbin/iw dev ap0 del' /etc/systemd/system/wpa_supplicant@ap0.service"
 	exec_cmd "systemctl daemon-reload"
 
-infotitle "Finally, setup the default wifi option"
+	infotitle "Finally, setup the default wifi option"
 
 	if [[ $flagOptD == 1 ]]; then
 		exec_cmd "systemctl disable wpa_supplicant@wlan0.service"
@@ -654,7 +653,7 @@ infotitle "Finally, setup the default wifi option"
 		exec_cmd "systemctl disable wpa_supplicant@ap0.service"
 	fi
 
-infotitle "YOU SHOULD NOW REBOOT YOUR PI" && echo "Run 'sudo reboot now'"
+	infotitle "YOU SHOULD NOW REBOOT YOUR PI" && echo "Run 'sudo reboot now'"
 
 	#== end   your program here ==#
 	scriptfinish
