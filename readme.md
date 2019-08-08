@@ -4,9 +4,9 @@
 Well, as the title here says, these scripts enable a Paspberry Pi to switch between station mode (connect to an access point) and Access Point mode (it **_is_** an access point) without needing to reboot the Pi.
 
 #### Ok... Why would I want that?
-Well let's say that you want to have a Pi embedded in a thing that has no interface for a user to configure it. You could have a button connected to the Pi that triggers it to switch to AP mode. Then the user can to it with their smartphone or whatever and browse to a webserver hosted by the Pi. Or maybe you just want to be able to demo some network functionality when you're not in range of an access point.
+Well let's say that you want to have a Pi embedded in a thing that has no interface for a user to configure it. You could have a button connected to the Pi that triggers it to switch to AP mode. Then the user can connect to it with their smartphone or whatever and browse to a webserver (that you provide separately!) hosted by the Pi. Or maybe you just want to be able to demo some network functionality when you're not in range of your home or office router.
 
-#### Neat. So how do I make it work then?
+#### Neat. So how do I make it work?
 Run this script as root. Use the -h flag to see usage info.
 
 `./setup_wlan_and_AP_modes.sh -s <station mode SSID> -p <station mode password> -a <AP mode SSID> -r <AP mode password>`
