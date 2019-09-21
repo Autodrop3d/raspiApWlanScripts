@@ -19,7 +19,7 @@ After running this script, you should reboot your Pi.
 You can run the `switchToAP.sh` or `switchToWlan.sh` scripts (as root) to do what they say.
 
 #### What if I want to change the station mode AP and passwords later?!
-Just rerun the `setup_wlan_and_AP_modes.sh script with whatever you need!
+Just rerun the setup_wlan_and_AP_modes.sh script with whatever you need!
 
 ---
 
