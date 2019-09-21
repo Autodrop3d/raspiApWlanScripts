@@ -20,3 +20,32 @@ You can run the `switchToAP.sh` or `switchToWlan.sh` scripts (as root) to do wha
 
 #### What if I want to change the station mode AP and passwords later?!
 Just rerun the `setup_wlan_and_AP_modes.sh script with whatever you need!
+
+---
+
+## Some impartant notes
+
+### These scripts are presently written to work in the US only.
+**But** if you live in another country, you can still make this work for you! You only need to edit the country codes. This can be done in two ways: Edit the setup script before running it **OR** edit the wpa-supplicant files after running the setup script.
+
+#### Option 1: Edit the setup script
+Simply search for the phrase `country=US`and replace it with `country=XX` where `XX` is **your** two letter country code. There are two places where you must make this change.
+
+#### Option 2: Edit the wpa-supplicant files after running the setup script
+As root, edit two files, both are in the /etc/wpa_supplicant/ directory:
+1. wpa_supplicant-wlan0.conf
+
+   This file is used for configuration when the Pi is in station mode (connecting to an access point). As above, replace `country=US` with whatever is appropriate for you.
+
+2. wpa_supplicant-ap0.conf
+
+   This file is used for configuration when the Pi is in AP mode (acting as an access point). Just as with the other wpa_supplicant file, edit the contry code as appropriate.
+
+### This script sets an AP mode IP address that you might not like.[^1]
+Well that's, like, your opinion, man. I like using 192.168.4.1. But if you don't, that's ok. You can choose whatever IP address you want to use by either editing the script or editing a file after you run the script.
+
+#### Option 1: Edit the setup script
+Simply search for the phrase `192.168.4.1` and replace it with your preferred IP address.
+
+#### Option 2: Edit /etc/systemd/network/12-ap0.network
+Same as the last option. Search this file for `192.168.4.1` and replace it with your preferred IP address.
