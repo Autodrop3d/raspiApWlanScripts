@@ -41,8 +41,8 @@ As root, edit two files, both are in the /etc/wpa_supplicant/ directory:
 
    This file is used for configuration when the Pi is in AP mode (acting as an access point). Just as with the other wpa_supplicant file, edit the contry code as appropriate.
 
-### This script sets an AP mode IP address that you might not like.[^1]
-Well that's, like, your opinion, man. I like using 192.168.4.1. But if you don't, that's ok. You can choose whatever IP address you want to use by either editing the script or editing a file after you run the script.
+### This script sets an AP mode IP address that you might not like.
+That's just like, your opinion, man. I like using 192.168.4.1. But if you don't, that's ok. You can choose whatever IP address you want to use by either editing the script or editing a file after you run the script.
 
 #### Option 1: Edit the setup script
 Simply search for the phrase `192.168.4.1` and replace it with your preferred IP address.
