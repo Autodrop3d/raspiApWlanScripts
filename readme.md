@@ -26,7 +26,7 @@ Just rerun the setup_wlan_and_AP_modes.sh script with whatever you need!
 ## Some impartant notes
 
 ### These scripts are presently written to work in the US only.
-**But** if you live in another country, you can still make this work for you! You only need to edit the country codes. This can be done in two ways: Edit the setup script before running it **OR** edit the wpa-supplicant files after running the setup script. Thanks to @cassc for reminding me of this limitation.
+**But** if you live in another country, you can still make this work for you! You only need to edit the country codes. This can be done in two ways: Edit the setup script before running it **OR** edit the wpa-supplicant files after running the setup script. Thanks to [cl](http://github.com/cassc/) for reminding me of this limitation.
 
 #### Option 1: Edit the setup script
 Simply search for the phrase `country=US`and replace it with `country=XX` where `XX` is **your** two letter country code. There are two places where you must make this change.
