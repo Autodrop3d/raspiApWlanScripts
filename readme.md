@@ -49,3 +49,5 @@ Simply search for the phrase `192.168.4.1` and replace it with your preferred IP
 
 #### Option 2: Edit /etc/systemd/network/12-ap0.network
 Same as the last option. Search this file for `192.168.4.1` and replace it with your preferred IP address.
+
+## Pull requests accepted! Go ahead - make my day
